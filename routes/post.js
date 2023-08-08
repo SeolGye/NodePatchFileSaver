@@ -1,8 +1,20 @@
 const express = require('express');
 const router=  express.Router();
+const path = require('path');
+const rootDir = require('../util/path');
+const adminData = require('./admin');
 
 router.get('/', (req, res, next) => {
-    res.send('<h1> Hello </h1>');
+    const products = adminData.products;
+    res.render('post-list', {
+        prods: products,
+        pageTitle : 'Shop',
+        path: '/',
+        hasProducts: products.length > 0,
+        activeShop: true,
+        productCSS: true
+
+    })
 })
 
 module.exports = router;
