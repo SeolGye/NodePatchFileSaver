@@ -2,11 +2,13 @@
     width: 20rem;
     max-width: 90%;
     margin: auto;
+    display: block;
 }
 
 .post-item {
     width: 20rem;
     max-width: 95%;
+    margin: 1rem;
 }
 
 .post__title {
@@ -14,12 +16,23 @@
     text-align: center;
 }
 
-.post__price {
+.post__createdat {
     text-align: center;
     color: #4d4d4d;
     margin-bottom: 0.5rem;
 }
-
+.post__userId {
+    text-align: center;
+    color: #4d4d4d;
+    margin-bottom: 0.5rem;
+}
 .post__description {
     text-align: center;
+}
+
+.post__truncate{
+    white-space: nowrap; 
+    overflow: hidden; /* 초과 내용 감추기 */
+    text-overflow: ellipsis; /* 초과 내용에 ... 표시 */
+
 }

@@ -1,0 +1,12 @@
+// controllers/menuController.js
+const MenuItem = require('../models/menuItem'); // 모델 경로에 맞게 수정
+
+exports.getMenuItems = async () => {
+  try {
+    const menuItems = await MenuItem.find();
+    return menuItems;
+  } catch (error) {
+    console.error(error);
+    throw new Error('Error fetching menu items');
+  }
+};

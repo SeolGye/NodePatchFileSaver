@@ -1,11 +1,16 @@
 const express = require('express');
 const router=  express.Router();
 
-const postsController = require('../controllers/posts');
+const postController = require('../controllers/postController');
 
-router.get('/', postsController.getIndex);
+router.get('/', postController.getIndex);
 
-router.get('/posts', postsController.getPosts);
+router.get('/posts', postController.getPosts);
 
+router.get('/posts/:postId', postController.getPost);
+
+router.post('/download', postController.postDownload);
+
+router.get('/download', postController.getDownload);
 
 module.exports = router;
