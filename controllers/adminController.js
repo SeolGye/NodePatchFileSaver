@@ -90,7 +90,7 @@ exports.getPosts = (req, res, next) => {
 
 exports.postDeletePost = (req, res, next) => {
     const postId = req.body.postId;
-    Post.findByIdAndRemove(mongoose.Types.ObjectId(postId))
+    Post.findByIdAndRemove(mongoose.Types.ObjectId(postId))    
     .then(() => {
         console.log('DESTROYED POST');
         res.redirect('/admin/posts');
