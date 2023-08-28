@@ -12,10 +12,7 @@ const connectAndInitializeDatabase  = async () => {
         if (!user) {
           const newUser = new User({
             name: 'Namsu',
-            email: 'namsu@test.com',
-            cart: {
-              items: []
-            }
+            email: 'namsu@test.com'
           });
           await newUser.save();
         }

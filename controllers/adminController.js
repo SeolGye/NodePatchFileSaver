@@ -1,4 +1,5 @@
 const Post = require('../models/post');
+const File = require('../models/file'); 
 const mongoose = require('mongoose');
 
 exports.getAddPost = (req, res, next) => {
@@ -88,12 +89,41 @@ exports.getPosts = (req, res, next) => {
     .catch(err => console.log(err));
 };
 
-exports.postDeletePost = (req, res, next) => {
+exports.postDeletePost = async (req, res, next) => {
     const postId = req.body.postId;
-    Post.findByIdAndRemove(mongoose.Types.ObjectId(postId))    
-    .then(() => {
-        console.log('DESTROYED POST');
-        res.redirect('/admin/posts');
-    })
-    .catch(err => console.log(err));
+    const objectIdPostId = new mongoose.Types.ObjectId(postId)
+
+    try 
+    {
+        const post = await Post.findById(objectIdPostId);
+        if(!post)
+        {
+            return res.status(404).json({ message: '게시물을 찾을 수 없습니다.' });
+        }
+
+        for (const fileId of post.attachedFiles)
+        {
+            const file = await File.findById(fileId);
+            if (file) 
+            {
+              // 파일 삭제
+              //fs.unlinkSync(path.join(__dirname, '../public/uploads', file.path));
+              // 파일 데이터베이스에서 삭제
+              await File.findByIdAndDelete(fileId);
+            }
+        }
+        // 게시물 삭제
+        Post.findByIdAndRemove(objectIdPostId)
+        .then(() => {
+            console.log('DESTROYED POST');
+            res.redirect('/admin/posts');    
+        }).catch(err => console.log(err));
+        return res.status(200).redirect('/admin/posts')    
+    } 
+    catch(err)
+    {
+        return res.status(500).json({ message: '게시물 삭제 중 에러가 발생했습니다.' });
+
+    }
+    
 }

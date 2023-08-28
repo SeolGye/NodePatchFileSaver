@@ -7,7 +7,7 @@ const { redirect } = require('express/lib/response')
 
 const app = express()
 const connectAndInitializeDatabase = require('./util/db'); // db.js 경로에 맞게 수정
-const createDummyData = require('./util/seed');
+const { createDummyData, createMenuItems }  = require('./util/seed');
 
 const errorController = require('./controllers/errorController')
 const User = require('./models/user');
@@ -41,9 +41,8 @@ app.use(homeRoutes);
 app.use(errorController.get404);
 
 connectAndInitializeDatabase()
-  .then(() => { 
-    return createDummyData()
-  })
+  .then(() => createDummyData()) //더미 데이터 생성
+  .then(() => createMenuItems()) //메뉴 초기값 생성
   .then(() => {
     const PORT = process.env.PORT || 3000;
     app.listen(PORT, () => { 

@@ -17,6 +17,15 @@
         <div class="main-header__searchbar">
             <input type="text" placeholder="Search...">
             <button class="btn__rev">Search</button>
+
+            <ul class="main-header__item-list">
+                <li class="main-header__item">
+                    <a class="<%= path === '/login' ? 'active' : '' %>" href="/login">Login</a>
+                </li>
+                <li class="main-header__item">
+                    <a class="<%= path === '/signup' ? 'active' : '' %>" href="/signup">Signup</a>
+                </li>
+            </ul>
         </div>
     </nav>
 </header>
